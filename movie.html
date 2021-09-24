@@ -4,30 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meta Movie</title>
+    <link rel="stylesheet" href="movie.css"/>
+    <title>Meta.Movie</title>
 </head>
 
 <body>
     <header>
         <nav>
-            <a href="" id="dns"> Meta Movie</a>
-            <input type="text" id="movie" placeholder="Enter movie name...."/>
-            <button id="btn">Search</button>
+            <a href="" id="dns"> Meta.Movie</a>
+            <input type="text" id="movie" class="movie" placeholder="Enter movie name...."/>
+            <button id="btn" class="btn">Search</button>
         </nav>
     </header>
-    <div id="container"></div>
+    <div id="container">
+        <div id="info">
+            <h3><span style="color: orangered;">Meta.Movie</span> is the place where you can get all meta data about the movies, just search for the your favourite movie.</h3>
+            <input type="text" id="movie1" class="movie" placeholder="Enter movie name...." style="margin: 40px 1px; width: 250px;"/>
+            <button id="btn1" class="btn" style="width: 130px;">Search</button>
+        </div>
+    </div>
     
     <script>
         var searchBtn = document.getElementById('btn');
+        var searchBtn1 = document.getElementById('btn1');
 
         function handleSearch(){
-            var movie = document.getElementById('movie').value;
-            if(!movie){
+            var movie = document.getElementById('movie');
+            if(!movie.value){
                 alert("please Enter movie name....");
                 return;
             }
             
-            getData(movie)
+            getData(movie.value);
                         
         }
 
@@ -46,12 +54,19 @@
         }
 
         function createData(data){
+            var cont = document.getElementById('container');
+            cont.className = 'cont'
+            cont.innerHTML = "";
+
             if(data.Error){
                 console.log("Enter valid movie name....");
+                const para = document.createElement('p');
+                para.textContent =`There is no such movie!!! TRY AGAIN....`;
+
+                cont.append(para);
                 return;
             }
-            var cont = document.getElementById('container');
-            cont.innerHTML = "";
+            
 
             const img = document.createElement('img');
             img.src = data.Poster;
@@ -61,13 +76,35 @@
 
             const year = document.createElement('h4');
             year.textContent = `Relesed Year: ${data.Year}`;
+
+            const rating = document.createElement('h4');
+            rating.textContent = `Rating: ${data.Ratings[0].Value}`;
+
+            const runtime = document.createElement('h4');
+            runtime.textContent = `Duration: ${data.Runtime}`;
+
+            const lang = document.createElement('h4');
+            lang.textContent = `Language: ${data.Language}`;
+
+            const director = document.createElement('h4');
+            director.textContent = `Director: ${data.Director}`;
             
-            cont.append(img, h3, year);
+            cont.append(img, h3, year, rating, runtime, lang, director);
             
         }
         
+        function fillSearchValue(){
+            var movie1 = document.getElementById('movie1');
+            if(!movie1.value){
+                alert("please Enter movie name....");
+                return;
+            }
+            getData(movie1.value);
+
+        }
 
         searchBtn.addEventListener('click', handleSearch);
+        searchBtn1.addEventListener('click', fillSearchValue);
     </script>
 </body>
 </html>
