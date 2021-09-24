@@ -54,20 +54,23 @@
         }
 
         function createData(data){
-            var cont = document.getElementById('container');
-            cont.className = 'cont'
+            var cont = document.getElementById('container');  
             cont.innerHTML = "";
 
             if(data.Error){
+                cont.style.textAlign = 'center';
                 console.log("Enter valid movie name....");
-                const para = document.createElement('p');
-                para.textContent =`There is no such movie!!! TRY AGAIN....`;
+                const err = document.createElement('img');
+                err.src = 'giphy.gif';
 
-                cont.append(para);
+                const para = document.createElement('p');
+                para.textContent =`(OOPS!!! There is no such movie, TRY AGAIN....)`;
+
+                cont.append(err, para);
                 return;
             }
             
-
+            cont.className = 'cont';
             const img = document.createElement('img');
             img.src = data.Poster;
          
