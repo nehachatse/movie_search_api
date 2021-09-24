@@ -71,6 +71,13 @@
             }
             
             cont.className = 'cont';
+            if(Number(data.imdbRating) > 8 ){
+                const recomm = document.createElement('div');
+                recomm.className = "recomm";
+                recomm.textContent = "RECOMMENDED";
+                cont.append(recomm);
+
+            }
             const img = document.createElement('img');
             img.src = data.Poster;
          
